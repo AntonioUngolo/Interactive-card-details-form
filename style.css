@@ -1,3 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.c-card {
+  @apply w-[447px] h-[245px] px-8 py-7 text-white;
+}
+
+input {
+  @apply appearance-none border border-light-gray mb-6 py-3 px-4 rounded-lg focus:outline-none;
+}
+
+input:focus {
+  background: radial-gradient(
+        circle at 100% 100%,
+        #ffffff 0,
+        #ffffff 5px,
+        transparent 5px
+      )
+      0% 0%/8px 8px no-repeat,
+    radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 5px, transparent 5px)
+      100% 0%/8px 8px no-repeat,
+    radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 5px, transparent 5px)
+      0% 100%/8px 8px no-repeat,
+    radial-gradient(circle at 0 0, #ffffff 0, #ffffff 5px, transparent 5px) 100%
+      100%/8px 8px no-repeat,
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 6px)
+      calc(100% - 16px) no-repeat,
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+      calc(100% - 6px) no-repeat,
+    linear-gradient(90deg, #6348fe 0%, #610595 100%);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+label {
+  @apply mb-2 uppercase;
+}
+
+form {
+  @apply w-[381px];
+}
+
+#input_month,
+#input_year {
+  @apply w-20;
+}
+
+#input_code {
+  width: 191px;
+}
+
+.submit {
+  @apply bg-deep-violet text-white py-4 rounded-lg;
+}
