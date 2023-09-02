@@ -643,8 +643,8 @@ video {
   right: 3.5rem;
 }
 
-.top-\[111px\] {
-  top: 111px;
+.top-\[110px\] {
+  top: 110px;
 }
 
 .isolate {
@@ -1138,10 +1138,6 @@ video {
   grid-auto-flow: column dense;
 }
 
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .flex-row {
   flex-direction: row;
 }
@@ -1336,6 +1332,10 @@ video {
 
 .gap-6 {
   gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -2364,7 +2364,6 @@ body {
 }
 
 input {
-  margin-bottom: 1.5rem;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -2384,28 +2383,61 @@ input:focus {
   background: radial-gradient(
         circle at 100% 100%,
         #ffffff 0,
-        #ffffff 5px,
-        transparent 5px
+        #ffffff 6px,
+        transparent 6px
       )
       0% 0%/8px 8px no-repeat,
-    radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 5px, transparent 5px)
+    radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 6px, transparent 6px)
       100% 0%/8px 8px no-repeat,
-    radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 5px, transparent 5px)
+    radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 6px, transparent 6px)
       0% 100%/8px 8px no-repeat,
-    radial-gradient(circle at 0 0, #ffffff 0, #ffffff 5px, transparent 5px) 100%
+    radial-gradient(circle at 0 0, #ffffff 0, #ffffff 6px, transparent 6px) 100%
       100%/8px 8px no-repeat,
-    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 6px)
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 4px)
       calc(100% - 16px) no-repeat,
     linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
-      calc(100% - 6px) no-repeat,
+      calc(100% - 4px) no-repeat,
     linear-gradient(90deg, #6348fe 0%, #610595 100%);
   border-radius: 8px;
-  box-sizing: border-box;
+  /* box-sizing: content-box; */
 }
 
 label {
   margin-bottom: 0.5rem;
   text-transform: uppercase;
+}
+
+.error {
+  position: absolute;
+  bottom: -1.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.error__input {
+  border: 2px solid red;
+}
+
+.error__input:focus {
+  background: radial-gradient(
+        circle at 100% 100%,
+        #fff 0,
+        #fff 11px,
+        transparent 11px
+      )
+      0% 0%/9px 9px no-repeat,
+    radial-gradient(circle at 0 100%, #fff 0, #fff 11px, transparent 11px) 100%
+      0%/11px 11px no-repeat,
+    radial-gradient(circle at 100% 0, #fff 0, #fff 11px, transparent 11px) 0%
+      100%/11px 11px no-repeat,
+    radial-gradient(circle at 0 0, #fff 0, #fff 11px, transparent 11px) 100%
+      100%/11px 11px no-repeat,
+    linear-gradient(#fff, #fff) 50% 50% / calc(100% - 0px) calc(100% - 0px)
+      no-repeat,
+    linear-gradient(#fff, #fff) 50% 50% / calc(100% - 0px) calc(100% - 0px)
+      no-repeat,
+    #fb0000;
+  border-radius: 8px;
 }
 
 form {
@@ -2492,6 +2524,12 @@ form {
 @media (min-width: 640px) {
   .sm\:underline {
     text-decoration-line: underline;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

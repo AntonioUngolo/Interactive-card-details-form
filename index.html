@@ -16,49 +16,57 @@
     <title>Frontend Mentor | Interactive card details form</title>
   </head>
   <body>
-    <div class="containter grid grid-cols-2 h-screen">
+    <div class="containter grid grdi-cols-1 md:grid-cols-2 h-screen">
       <div class="flex justify-center items-center bg-background bg-no-repeat">
         <div class="flex flex-col gap-6 ml-24">
           <div class="bg-front-card c-card flex flex-col justify-between">
             <img src="/images/card-logo.svg" alt="" class="w-20" />
             <div>
-              <p id="cc_number" class="text-3xl mb-6">9591 6489 6389 1011</p>
+              <p id="cc_number" class="text-3xl mb-6">0000 0000 0000 0000</p>
               <div class="flex justify-between">
                 <p id="cc_user" class="uppercase">felicia leire</p>
                 <p id="cc_expire">
-                  <span id="expire_month">09</span>
+                  <span id="expire_month">00</span>
                   /
-                  <span id="expire_year">26</span>
+                  <span id="expire_year">23</span>
                 </p>
               </div>
             </div>
           </div>
           <div class="bg-back-card c-card ml-24 relative">
-            <p id="cc_code" class="absolute right-14 top-[111px]">000</p>
+            <p id="cc_code" class="absolute right-14 top-[110px]">000</p>
           </div>
         </div>
       </div>
       <div class="form flex items-center ml-32">
-        <form action="" method="get" class="flex flex-col">
-          <label for="input_user">Cardholder Name</label>
-          <input type="text" name="cc_input" id="input_user" placeholder="e.g. John Doe" />
-          <label for="input_number">Card Number</label>
-          <input type="text" name="cc_input" id="input_number" placeholder="e.g. 1234 5678 9123" />
+        <form name="myForm" method="get" class="flex flex-col gap-8">
+          <div class="flex flex-col relative">
+            <label for="input_user">Cardholder Name</label>
+            <input type="text" name="cc_input" id="input_user" placeholder="e.g. John Doe" />
+            <p id="error__user" class="hidden error"></p>
+          </div>
+          <div class="flex flex-col relative">
+            <label for="input_number">Card Number</label>
+            <input type="text" name="cc_number" id="input_number" placeholder="e.g. 1234 5678 9123" class="" maxlength="16" />
+            <p id="errorNumber" class="hidden error"></p>
+          </div>
 
           <div class="flex justify-between items-center gap-5">
-            <div class="flex flex-col">
+            <div class="flex flex-col relative">
               <label for="" class="mb-2">Exp. Date (MM/YY)</label>
               <div class="flex gap-3">
-                <input type="text" name="cc_input" id="input_month" placeholder="MM" />
-                <input type="text" name="cc_input" id="input_year" placeholder="YY" />
+                <input type="text" name="cc_input" id="input_month" placeholder="MM" maxlength="2" />
+                <input type="text" name="cc_input" id="input_year" placeholder="YY" maxlength="2" />
               </div>
+              <p id="error__date" class="error hidden"></p>
             </div>
-            <div class="flex flex-col">
+            <div class="flex flex-col relative">
               <label for="input_code">CVC</label>
-              <input type="text" name="cc_input" id="input_code" placeholder="e.g. 123" />
+              <input type="text" name="cc_input" id="input_code" placeholder="e.g. 123" maxlength="3" />
+              <p id="error__code" class="error hidden"></p>
             </div>
           </div>
-          <button class="submit">Confirm</button>
+          <button id="submit_button" class="submit">Confirm</button>
         </form>
       </div>
     </div>

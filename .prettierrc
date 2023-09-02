@@ -2,7 +2,7 @@
   "singleQuote": true,
   "overrides": [
     {
-      "files": ["./**.html"],
+      "files": ["./**.{html, js}"],
       "options": {
         "tabWidth": 2,
         "htmlWhitespaceSensitivity": "ignore",
