@@ -1138,6 +1138,10 @@ video {
   grid-auto-flow: column dense;
 }
 
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -1771,12 +1775,12 @@ video {
   background-image: url('/images/bg-card-back.png');
 }
 
-.bg-background {
-  background-image: url('/images/bg-main-desktop.png');
-}
-
 .bg-front-card {
   background-image: url('/images/bg-card-front.png');
+}
+
+.bg-background-mobile {
+  background-image: url('/images/bg-main-mobile.png');
 }
 
 .decoration-slice {
@@ -1797,6 +1801,10 @@ video {
 .box-decoration-clone {
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
+}
+
+.bg-contain {
+  background-size: contain;
 }
 
 .bg-fixed {
@@ -2530,6 +2538,10 @@ form {
 @media (min-width: 768px) {
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:bg-background-desktop {
+    background-image: url('/images/bg-main-desktop.png');
   }
 }
 

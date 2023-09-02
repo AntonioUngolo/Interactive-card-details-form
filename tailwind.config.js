@@ -6,7 +6,8 @@ module.exports = {
       backgroundImage: {
         'front-card': "url('/images/bg-card-front.png')",
         'back-card': "url('/images/bg-card-back.png')",
-        background: "url('/images/bg-main-desktop.png')",
+        'background-desktop': "url('/images/bg-main-desktop.png')",
+        'background-mobile': "url('/images/bg-main-mobile.png')",
       },
       colors: {
         'light-gray': '#DFDEE0',

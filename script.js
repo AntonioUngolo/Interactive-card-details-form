@@ -21,15 +21,33 @@ function isNotAString() {
   return 'Wrong format, text only';
 }
 
+function checkName() {
+  function removeEmptyStringsFromArray(arr) {
+    var filteredArray = arr.filter(function (value) {
+      return value !== '';
+    });
+    return filteredArray;
+  }
+  const check = String(inputCardholder.value).split(' ');
+  const filteredArray = removeEmptyStringsFromArray(check);
+  console.log(check, filteredArray);
+
+  if (filteredArray.length >= 2) {
+    console.log(true);
+  } else {
+    console.log(false);
+  }
+}
+
 function expiredCard() {
   const date = new Date();
   const currentMonth = date.getMonth();
   const currentYear = String(date.getFullYear()).slice(2);
 
   if (inputMonth.value >= currentMonth && inputYear.value >= currentYear) {
-    console.log('Card is not expired');
+    return true;
   } else {
-    console.log('Card is Expired');
+    return false;
   }
 }
 
@@ -81,10 +99,6 @@ inputMonth.addEventListener('input', function () {
   const input = inputMonth.value;
   const formattedInput = String(input).padStart(2, 0);
 
-  const date = new Date();
-  const currentMonth = date.getMonth();
-  const currentYear = String(date.getFullYear()).slice(2);
-
   if (inputMonth.value === '') {
     errorDate.classList.remove('hidden');
     errorDate.textContent = 'Can’t be blank';
@@ -95,10 +109,7 @@ inputMonth.addEventListener('input', function () {
   ) {
     errorDate.classList.remove('hidden');
     errorDate.textContent = 'Error input month';
-  } else if (
-    inputMonth.value >= currentMonth &&
-    inputYear.value >= currentYear
-  ) {
+  } else if (!expiredCard()) {
     errorDate.classList.remove('hidden');
     errorDate.textContent = 'Expired Card';
   } else {
@@ -120,7 +131,11 @@ inputMonth.addEventListener('input', function () {
     inputMonth.classList.remove('error__input');
   }
 
-  expiredCard();
+  if (expiredCard()) {
+    console.log('Not Expired Card');
+  } else {
+    console.log('Expired Card');
+  }
 });
 
 inputYear.addEventListener('input', function () {
@@ -141,6 +156,9 @@ inputYear.addEventListener('input', function () {
     // Display error for an expired card
     errorDate.classList.remove('hidden');
     errorDate.textContent = 'Error Year';
+  } else if (!expiredCard()) {
+    errorDate.classList.remove('hidden');
+    errorDate.textContent = 'Expired Card';
   } else {
     // Clear errors if no issues
     errorDate.classList.add('hidden');
@@ -191,15 +209,29 @@ submitButton.addEventListener('click', function (event) {
       inputYear.value !== '' &&
       inputCode.value !== ''
     ) {
-      // The 'hidden' class is present in the 'error' div
-      // console.log('The error div is hidden');
-      // console.log('Click submit');
-      // alert('Can continue');
       const form = document.querySelector('.form');
       form.classList.add('hidden');
     } else {
       // The 'hidden' class is not present in the 'error' div
+      const inputs = document.querySelectorAll('input');
+      errorLabels.forEach((error) => {
+        inputs.forEach((input) => {
+          if (input.value === '') {
+            error.textContent = `Can't be blank`;
+            error.classList.remove('hidden');
+          } else {
+            error.classList.add('hidden');
+          }
+        });
+      });
+      inputs.forEach((input) => {
+        if (input.value === '') {
+          input.classList.add('error__input');
+        }
+      });
       console.log('Can not continue');
     }
   });
+
+  checkName();
 });
