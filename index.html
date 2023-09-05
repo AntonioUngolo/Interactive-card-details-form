@@ -17,15 +17,15 @@
   </head>
   <body>
     <div class="containter grid grid-cols-1 md:grid-cols-2 h-screen">
-      <div class="flex justify-center items-center bg-background-mobile bg-contain md:bg-background-desktop bg-no-repeat">
-        <div class="flex flex-col gap-6 ml-24">
-          <div class="bg-front-card c-card flex flex-col justify-between">
-            <img src="/images/card-logo.svg" alt="" class="w-20" />
+      <div class="flex justify-center items-center bg-background-mobile bg-cover md:bg-auto md:bg-background-desktop bg-no-repeat h-60 md:h-full">
+        <div class="flex flex-col gap-6 ml-0 justify-center items-center md:ml-24">
+          <div class="bg-front-card absolute left-4 top-32 c-card flex flex-col justify-between z-20 md:relative md:top-0 md:left-0">
+            <img src="/images/card-logo.svg" alt="" class="w-14 md:w-20" />
             <div>
-              <p id="cc_number" class="text-3xl mb-6">0000 0000 0000 0000</p>
+              <p id="cc_number" class="text-lg md:text-3xl mb-4 md:mb-6">0000 0000 0000 0000</p>
               <div class="flex justify-between">
-                <p id="cc_user" class="uppercase">felicia leire</p>
-                <p id="cc_expire">
+                <p id="cc_user" class="uppercase text-xs md:text-base">John Doe</p>
+                <p id="cc_expire" class="text-xs md:text-base">
                   <span id="expire_month">00</span>
                   /
                   <span id="expire_year">23</span>
@@ -33,50 +33,61 @@
               </div>
             </div>
           </div>
-          <div class="bg-back-card c-card ml-24 relative">
-            <p id="cc_code" class="absolute right-14 top-[110px]">000</p>
+          <div class="bg-back-card c-card absolute top-8 right-4 md:top-0 md:right-0 md:ml-24 text-xs md:text-base md:relative">
+            <div class="relative h-full">
+              <p id="cc_code" class="absolute right-2 md:right-5 top-[53px] md:top-[80px]">000</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="form flex items-center ml-32">
-        <form name="myForm" method="get" class="flex flex-col gap-8">
-          <div class="flex flex-col relative">
+      <div class="form flex items-center justify-center md:justify-normal md:ml-32">
+        <form name="myForm" method="get" class="flex flex-col gap-8 justify-center items-center">
+          <div class="form_input flex flex-col relative">
             <label for="input_user">Cardholder Name</label>
             <input type="text" name="cc_input" id="input_user" placeholder="e.g. John Doe" />
             <p id="error__user" class="hidden error"></p>
           </div>
-          <div class="flex flex-col relative">
+          <div class="form_input flex flex-col relative">
             <label for="input_number">Card Number</label>
             <input type="text" name="cc_number" id="input_number" placeholder="e.g. 1234 5678 9123" class="" maxlength="16" />
             <p id="errorNumber" class="hidden error"></p>
           </div>
 
           <div class="flex justify-between items-center gap-5">
-            <div class="flex flex-col relative">
+            <div class="flex flex-col">
               <label for="" class="mb-2">Exp. Date (MM/YY)</label>
-              <div class="flex gap-3">
+              <div class="form_input flex gap-3 relative">
                 <input type="text" name="cc_input" id="input_month" placeholder="MM" maxlength="2" />
                 <input type="text" name="cc_input" id="input_year" placeholder="YY" maxlength="2" />
+                <p id="error__date" class="hidden error"></p>
               </div>
-              <p id="error__date" class="error hidden"></p>
             </div>
-            <div class="flex flex-col relative">
+            <div class="form_input flex flex-col relative">
               <label for="input_code">CVC</label>
               <input type="text" name="cc_input" id="input_code" placeholder="e.g. 123" maxlength="3" />
-              <p id="error__code" class="error hidden"></p>
+              <p id="error__code" class="hidden error"></p>
             </div>
           </div>
-          <button id="submit_button" class="submit">Confirm</button>
+          <button id="submit_button" class="button">Confirm</button>
         </form>
       </div>
-    </div>
 
-    <div class="attribution">
-      Challenge by
-      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>
-      . Coded by
-      <a href="#">Your Name Here</a>
-      .
+      <div id="thank_you" class="hidden flex justify-center md:justify-normal mx-auto md:mx-0 items-center md:ml-32">
+        <div class="flex flex-col items-center w-full">
+          <img src="/images/icon-complete.svg" alt="" srcset="" class="mb-9" />
+          <p class="uppercase text-deep-violet text-2xl mb-4">Thank You!</p>
+          <p class="text-purplish-grey mb-12">We’ve added your card details</p>
+          <button type="button" class="button">Continue</button>
+        </div>
+      </div>
+
+      <div class="attribution hidden">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>
+        . Coded by
+        <a href="#">Your Name Here</a>
+        .
+      </div>
     </div>
     <script src="/script.js"></script>
   </body>

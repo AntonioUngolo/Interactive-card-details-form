@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         'light-gray': '#DFDEE0',
         'deep-violet': '#21092F',
+        'purplish-grey': '#8F8694',
       },
     },
   },

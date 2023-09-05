@@ -13,6 +13,7 @@ const labelExpireYear = document.querySelector('#expire_year');
 const labelCode = document.querySelector('#cc_code');
 
 const submitButton = document.getElementById('submit_button');
+const thankYouButton = document.getElementById('thank_you');
 
 function isNotANumber() {
   return 'Wrong format, numbers only';
@@ -30,12 +31,11 @@ function checkName() {
   }
   const check = String(inputCardholder.value).split(' ');
   const filteredArray = removeEmptyStringsFromArray(check);
-  console.log(check, filteredArray);
 
   if (filteredArray.length >= 2) {
-    console.log(true);
+    return true;
   } else {
-    console.log(false);
+    return false;
   }
 }
 
@@ -51,6 +51,42 @@ function expiredCard() {
   }
 }
 
+const checkInputs = function () {
+  const formInputs = document.querySelectorAll('.form_input');
+  formInputs.forEach((form) => {
+    const error = form.querySelector('.error');
+
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach((input) => {
+      if (input.value === '') {
+        error.textContent = 'Can not be blank';
+        error.classList.remove('hidden');
+        input.classList.add('error__input');
+      } else {
+        error.textContent = '';
+        error.classList.add('hidden');
+        input.classList.remove('error__input');
+      }
+    });
+  });
+};
+
+const checkNumberLenght = function () {
+  if (inputNumber.value.length < 12) {
+    console.log('Less Than 12');
+    errorNumber.classList.remove('hidden');
+    errorNumber.textContent = 'Not enough numbers';
+    inputNumber.classList.add('error__input');
+    return true;
+  } else {
+    console.log('More than 12');
+    inputNumber.classList.remove('error__input');
+    errorNumber.classList.add('hidden');
+    errorNumber.textContent = '';
+    return false;
+  }
+};
+
 inputCardholder.addEventListener('input', function () {
   const errorUser = document.getElementById('error__user');
   const pattern = /\d/; // The \d pattern matches any digit (0-9)
@@ -58,13 +94,21 @@ inputCardholder.addEventListener('input', function () {
   if (pattern.test(inputCardholder.value)) {
     errorUser.classList.remove('hidden');
     errorUser.textContent = isNotAString();
+  } else if (inputCardholder.value === '') {
+    const errorUser = document.getElementById('error__user');
+    errorUser.classList.remove('hidden');
+    errorUser.textContent = 'Can not be blank';
+    inputCardholder.classList.add('error__input');
+  } else if (!checkName()) {
+    errorUser.classList.remove('hidden');
+    errorUser.textContent = 'You need a name and a surname';
+    inputCardholder.classList.add('error__input');
   } else {
     labelUser.textContent = inputCardholder.value;
     errorUser.classList.add('hidden');
   }
 
   if (!errorUser.classList.contains('hidden')) {
-    // console.log('Error Visible');
     inputCardholder.classList.add('error__input');
   } else {
     inputCardholder.classList.remove('error__input');
@@ -76,22 +120,27 @@ inputNumber.addEventListener('input', function (e) {
   const input = inputNumber.value;
   const inputPad = String(input).padStart(16, 0);
   const formattedInput = inputPad.replace(/(.{4})/g, '$1 ');
-  // console.log(formattedInput);
+
   if (!isNaN(inputNumber.value)) {
     labelNumber.textContent = formattedInput;
     errorNumber.classList.add('hidden');
+  } else if (inputNumber.value === '') {
+    errorNumber.classList.remove('hidden');
+    errorNumber.textContent = 'Can’t be blank';
   } else {
-    // console.log('Wrong format, numbers only');
     errorNumber.classList.remove('hidden');
     errorNumber.textContent = isNotANumber();
   }
 
   if (!errorNumber.classList.contains('hidden')) {
-    // console.log('Error Visible');
     inputNumber.classList.add('error__input');
   } else {
     inputNumber.classList.remove('error__input');
   }
+
+  inputNumber.addEventListener('blur', function () {
+    checkNumberLenght();
+  });
 });
 
 inputMonth.addEventListener('input', function () {
@@ -109,9 +158,6 @@ inputMonth.addEventListener('input', function () {
   ) {
     errorDate.classList.remove('hidden');
     errorDate.textContent = 'Error input month';
-  } else if (!expiredCard()) {
-    errorDate.classList.remove('hidden');
-    errorDate.textContent = 'Expired Card';
   } else {
     labelExpireMonth.textContent = formattedInput;
     errorDate.classList.add('hidden');
@@ -124,17 +170,9 @@ inputMonth.addEventListener('input', function () {
   });
 
   if (!errorDate.classList.contains('hidden')) {
-    // console.log('Error Visible');
     inputMonth.classList.add('error__input');
   } else {
-    // console.log('Error not Visible');
     inputMonth.classList.remove('error__input');
-  }
-
-  if (expiredCard()) {
-    console.log('Not Expired Card');
-  } else {
-    console.log('Expired Card');
   }
 });
 
@@ -147,7 +185,6 @@ inputYear.addEventListener('input', function () {
     // Display error for empty input
     errorDate.classList.remove('hidden');
     errorDate.textContent = 'Can’t be blank';
-    console.log('Cannot be empty');
   } else if (inputYear.value < String(dateYear).slice(2)) {
     // Display error for an expired card
     errorDate.classList.remove('hidden');
@@ -156,9 +193,6 @@ inputYear.addEventListener('input', function () {
     // Display error for an expired card
     errorDate.classList.remove('hidden');
     errorDate.textContent = 'Error Year';
-  } else if (!expiredCard()) {
-    errorDate.classList.remove('hidden');
-    errorDate.textContent = 'Expired Card';
   } else {
     // Clear errors if no issues
     errorDate.classList.add('hidden');
@@ -167,13 +201,10 @@ inputYear.addEventListener('input', function () {
   }
 
   if (!errorDate.classList.contains('hidden')) {
-    console.log('Error Visible');
     inputYear.classList.add('error__input');
   } else {
     inputYear.classList.remove('error__input');
   }
-
-  expiredCard();
 });
 
 inputCode.addEventListener('input', function () {
@@ -190,7 +221,6 @@ inputCode.addEventListener('input', function () {
   }
 
   if (!errorCode.classList.contains('hidden')) {
-    console.log('Error Visible');
     inputCode.classList.add('error__input');
   } else {
     inputCode.classList.remove('error__input');
@@ -199,39 +229,46 @@ inputCode.addEventListener('input', function () {
 
 submitButton.addEventListener('click', function (event) {
   event.preventDefault();
+  checkName();
   const errorLabels = document.querySelectorAll('.error');
   errorLabels.forEach((error) => {
-    if (
+    // if (
+    //   error.classList.contains('hidden') &&
+    //   inputCardholder.value !== '' &&
+    //   inputNumber.value !== '' &&
+    //   inputMonth.value !== '' &&
+    //   inputYear.value !== '' &&
+    //   inputCode.value !== ''
+    // ) {
+    //   const form = document.querySelector('.form');
+    //   form.classList.add('hidden');
+
+    //   const thankYou = document.querySelector('#thank_you');
+    //   thankYou.classList.remove('hidden');
+    // } else if(!checkNumberLenght()){
+
+    // }else {
+    //   checkInputs();
+    // }
+
+    if (checkNumberLenght()) {
+      console.log('Error Lenght, can not continue');
+    } else if (
       error.classList.contains('hidden') &&
-      inputCardholder.value !== '' &&
-      inputNumber.value !== '' &&
-      inputMonth.value !== '' &&
-      inputYear.value !== '' &&
-      inputCode.value !== ''
+      inputCardholder.value === '' &&
+      inputNumber.value === '' &&
+      inputMonth.value === '' &&
+      inputYear.value === '' &&
+      inputCode.value === ''
     ) {
-      const form = document.querySelector('.form');
-      form.classList.add('hidden');
+      // checkInputs();
+      console.log('Error inputs empty, can not continue');
     } else {
-      // The 'hidden' class is not present in the 'error' div
-      const inputs = document.querySelectorAll('input');
-      errorLabels.forEach((error) => {
-        inputs.forEach((input) => {
-          if (input.value === '') {
-            error.textContent = `Can't be blank`;
-            error.classList.remove('hidden');
-          } else {
-            error.classList.add('hidden');
-          }
-        });
-      });
-      inputs.forEach((input) => {
-        if (input.value === '') {
-          input.classList.add('error__input');
-        }
-      });
-      console.log('Can not continue');
+      console.log('No Errors, can continue');
     }
   });
+});
 
-  checkName();
+thankYouButton.addEventListener('click', function (e) {
+  e.preventDefault();
 });
