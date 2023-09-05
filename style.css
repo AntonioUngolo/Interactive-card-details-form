@@ -7,7 +7,7 @@ body {
 }
 
 .c-card {
-  @apply w-[285px] h-[156px] md:w-[447px] md:h-[245px] py-4 px-5 px-8 md:py-7 text-white bg-cover;
+  @apply transition-all duration-1000 ease-out w-[285px] h-[156px] md:w-[447px] md:h-[245px] py-4 px-5 md:px-8 md:py-7 text-white bg-cover;
 }
 
 input {
@@ -72,7 +72,7 @@ label {
 }
 
 form {
-  @apply w-[90vw] md:w-[381px] mt-20 mb-11 md:my-0;
+  @apply w-[90vw] lg:w-[381px] mt-20 mb-11 lg:my-0;
 }
 
 .form_input {
@@ -85,7 +85,7 @@ form {
 }
 
 #input_code {
-  @apply w-full md:w-[191px];
+  @apply w-full lg:w-[191px];
 }
 
 .button {
@@ -93,5 +93,5 @@ form {
 }
 
 #thank_you {
-  @apply w-[90vw] md:w-[381px];
+  @apply w-[90vw] lg:w-[381px];
 }

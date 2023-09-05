@@ -16,13 +16,13 @@
     <title>Frontend Mentor | Interactive card details form</title>
   </head>
   <body>
-    <div class="containter grid grid-cols-1 md:grid-cols-2 h-screen">
-      <div class="flex justify-center items-center bg-background-mobile bg-cover md:bg-auto md:bg-background-desktop bg-no-repeat h-60 md:h-full">
-        <div class="flex flex-col gap-6 ml-0 justify-center items-center md:ml-24">
-          <div class="bg-front-card absolute left-4 top-32 c-card flex flex-col justify-between z-20 md:relative md:top-0 md:left-0">
-            <img src="/images/card-logo.svg" alt="" class="w-14 md:w-20" />
+    <div class="containter grid grid-cols-1 lg:grid-cols-2 h-screen relative">
+      <div class="flex justify-center items-center bg-background-mobile bg-cover lg:bg-auto lg:bg-background-desktop bg-no-repeat h-60 lg:h-full">
+        <div class="flex flex-col gap-6 ml-0 justify-center items-center lg:ml-24">
+          <div class="bg-front-card absolute left-4 top-32 md:top-24 md:left-2/4 md:-translate-x-2/4 c-card flex flex-col justify-between z-20 lg:translate-x-0 lg:relative lg:top-0 lg:left-0">
+            <img src="/images/card-logo.svg" alt="" class="w-14 lg:w-20" />
             <div>
-              <p id="cc_number" class="text-lg md:text-3xl mb-4 md:mb-6">0000 0000 0000 0000</p>
+              <p id="cc_number" class="text-lg md:text-2xl lg:text-3xl mb-4 lg:mb-6">0000 0000 0000 0000</p>
               <div class="flex justify-between">
                 <p id="cc_user" class="uppercase text-xs md:text-base">John Doe</p>
                 <p id="cc_expire" class="text-xs md:text-base">
@@ -33,14 +33,14 @@
               </div>
             </div>
           </div>
-          <div class="bg-back-card c-card absolute top-8 right-4 md:top-0 md:right-0 md:ml-24 text-xs md:text-base md:relative">
+          <div class="bg-back-card c-card absolute top-8 right-4 md:right-[10%] lg:top-0 lg:right-0 lg:ml-24 text-xs md:text-base lg:relative">
             <div class="relative h-full">
-              <p id="cc_code" class="absolute right-2 md:right-5 top-[53px] md:top-[80px]">000</p>
+              <p id="cc_code" class="absolute right-3 top-[53px] md:right-5 md:top-[80px] lg:right-5">000</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="form flex items-center justify-center md:justify-normal md:ml-32">
+      <div class="form flex items-center justify-center lg:justify-normal lg:ml-32">
         <form name="myForm" method="get" class="flex flex-col gap-8 justify-center items-center">
           <div class="form_input flex flex-col relative">
             <label for="input_user">Cardholder Name</label>
@@ -53,7 +53,7 @@
             <p id="errorNumber" class="hidden error"></p>
           </div>
 
-          <div class="flex justify-between items-center gap-5">
+          <div class="flex justify-between items-center gap-5 w-full">
             <div class="flex flex-col">
               <label for="" class="mb-2">Exp. Date (MM/YY)</label>
               <div class="form_input flex gap-3 relative">
@@ -72,7 +72,7 @@
         </form>
       </div>
 
-      <div id="thank_you" class="hidden flex justify-center md:justify-normal mx-auto md:mx-0 items-center md:ml-32">
+      <div id="thank_you" class="hidden flex justify-center lg:justify-normal mx-auto lg:mx-0 items-center lg:ml-32">
         <div class="flex flex-col items-center w-full">
           <img src="/images/icon-complete.svg" alt="" srcset="" class="mb-9" />
           <p class="uppercase text-deep-violet text-2xl mb-4">Thank You!</p>
@@ -81,13 +81,15 @@
         </div>
       </div>
 
-      <div class="attribution hidden">
-        Challenge by
-        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>
-        . Coded by
-        <a href="#">Your Name Here</a>
-        .
-      </div>
+      <!-- <div class="attribution w-full bg-white absolute bottom-0 text-center py-2">
+        <p>
+          Challenge by
+          <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>
+          . Coded by
+          <a href="https://github.com/AntonioUngolo" target="_blank">Antonio Ungolo</a>
+          .
+        </p>
+      </div> -->
     </div>
     <script src="/script.js"></script>
   </body>

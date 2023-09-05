@@ -25,18 +25,33 @@ function isNotAString() {
 function blankContent() {
   return 'Can not be blank';
 }
+// This function helps to add a class when needed
+const addClass = function (selector, remove, text) {
+  selector.classList.add(remove);
+  selector.textContent = text;
+};
 
+// This function helps to remove a class when needed
+const removeClass = function (selector, remove, text) {
+  selector.classList.remove(remove);
+  selector.textContent = text;
+};
+
+// Check if the name is made at least by 2 words (Name and Surname)
 function checkName() {
+  // Remove empty string from array
   function removeEmptyStringsFromArray(arr) {
+    // Filter the array only with words
     var filteredArray = arr.filter(function (value) {
       return value !== '';
     });
     return filteredArray;
   }
+
   const check = String(inputCardholder.value).split(' ');
   const filteredArray = removeEmptyStringsFromArray(check);
 
-  if (filteredArray.length >= 2) {
+  if (filteredArray.length >= 2 && inputCardholder.value !== '') {
     return true;
   } else {
     return false;
@@ -63,12 +78,20 @@ const checkInputs = function () {
     const inputs = form.querySelectorAll('input');
     inputs.forEach((input) => {
       if (input.value === '') {
-        error.textContent = 'Can not be blank';
-        error.classList.remove('hidden');
+        // error.classList.remove('hidden');
+        // error.textContent = 'Can not be blank';
+        removeClass(error, 'hidden', blankContent());
         input.classList.add('error__input');
+      } else if (!checkName() && input.value === '') {
+        // error.classList.remove('hidden');
+        // error.textContent = 'You need a name and a surname';
+        removeClass(error, 'hidden', blankContent());
+        input.classList.add('error__input');
+        checkNumberLenght();
       } else {
-        error.textContent = '';
-        error.classList.add('hidden');
+        // error.classList.add('hidden');
+        // error.textContent = '';
+        addClass(error, 'hidden', '');
         input.classList.remove('error__input');
       }
     });
@@ -76,28 +99,23 @@ const checkInputs = function () {
 };
 
 const checkNumberLenght = function () {
-  if (inputNumber.value.length < 12) {
-    errorNumber.classList.remove('hidden');
-    errorNumber.textContent = 'Not enough numbers';
+  if (inputNumber.value.length < 16 && !isNaN(inputNumber.value)) {
+    // errorNumber.classList.remove('hidden');
+    // errorNumber.textContent = 'Not enough numbers';
+    if (inputNumber.value !== '') {
+      removeClass(errorNumber, 'hidden', 'Not enough numbers');
+    } else {
+      removeClass(errorNumber, 'hidden', blankContent());
+    }
     inputNumber.classList.add('error__input');
     return true;
   } else {
+    // errorNumber.classList.add('hidden');
+    // errorNumber.textContent = '';
+    addClass(errorNumber, 'hidden', '');
     inputNumber.classList.remove('error__input');
-    errorNumber.classList.add('hidden');
-    errorNumber.textContent = '';
     return false;
   }
-};
-
-const removeClass = function (cl, rm, tx) {
-  cl.classList.remove(rm);
-  cl.textContent = tx;
-};
-
-// Questa funzione serve ad aggiungere la classe
-const addClass = function (cl, rm, tx) {
-  cl.classList.add(rm);
-  cl.textContent = tx;
 };
 
 inputCardholder.addEventListener('input', function () {
@@ -121,7 +139,10 @@ inputCardholder.addEventListener('input', function () {
   }
 
   inputCardholder.addEventListener('blur', function () {
-    if (!checkName()) {
+    if (inputCardholder.value === '') {
+      removeClass(errorUser, 'hidden', blankContent());
+      inputCardholder.classList.add('error__input');
+    } else if (!checkName()) {
       // errorUser.classList.remove('hidden');
       // errorUser.textContent = 'You need a name and a surname';
       removeClass(errorUser, 'hidden', 'You need a name and a surname');
@@ -147,11 +168,13 @@ inputNumber.addEventListener('input', function (e) {
     addClass(errorNumber, 'hidden', '');
     labelNumber.textContent = formattedInput;
   } else if (inputNumber.value === '') {
-    errorNumber.classList.remove('hidden');
-    errorNumber.textContent = 'Can’t be blank';
+    // errorNumber.classList.remove('hidden');
+    // errorNumber.textContent = 'Can’t be blank';
+    removeClass(errorNumber, 'hidden', blankContent());
   } else {
-    errorNumber.classList.remove('hidden');
-    errorNumber.textContent = isNotANumber();
+    // errorNumber.classList.remove('hidden');
+    // errorNumber.textContent = isNotANumber();
+    removeClass(errorNumber, 'hidden', isNotANumber());
   }
 
   if (!errorNumber.classList.contains('hidden')) {
@@ -161,7 +184,12 @@ inputNumber.addEventListener('input', function (e) {
   }
 
   inputNumber.addEventListener('blur', function () {
-    checkNumberLenght();
+    // checkNumberLenght();
+    if (checkNumberLenght()) {
+      checkNumberLenght();
+    } else {
+      checkNumberLenght();
+    }
   });
 });
 
@@ -259,7 +287,8 @@ submitButton.addEventListener('click', function (event) {
       inputNumber.value !== '' &&
       inputMonth.value !== '' &&
       inputYear.value !== '' &&
-      inputCode.value !== ''
+      inputCode.value !== '' &&
+      checkName()
     ) {
       const form = document.querySelector('.form');
       form.classList.add('hidden');
@@ -267,7 +296,17 @@ submitButton.addEventListener('click', function (event) {
       const thankYou = document.querySelector('#thank_you');
       thankYou.classList.remove('hidden');
     } else {
-      checkInputs();
+      if (!checkName() && error.classList.contains('hidden')) {
+        const errorUser = document.getElementById('error__user');
+        removeClass(errorUser, 'hidden', 'You need a name and a surname');
+        inputCardholder.classList.add('error__input');
+        checkInputs();
+        checkNumberLenght();
+      } else {
+        console.log(error);
+        checkInputs();
+        checkNumberLenght();
+      }
     }
   });
 });
