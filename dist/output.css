@@ -1976,10 +1976,6 @@ video {
   text-align: end;
 }
 
-.indent-1 {
-  text-indent: 0.25rem;
-}
-
 .align-baseline {
   vertical-align: baseline;
 }
@@ -2097,18 +2093,6 @@ video {
 .stacked-fractions {
   --tw-numeric-fraction: stacked-fractions;
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
-}
-
-.tracking-wide {
-  letter-spacing: 0.025em;
-}
-
-.tracking-widest {
-  letter-spacing: 0.1em;
-}
-
-.tracking-\[3\2c 25px\] {
-  letter-spacing: 3,25px;
 }
 
 .tracking-\[2px\] {
@@ -2458,6 +2442,7 @@ body {
 .c-card {
   height: 156px;
   width: 285px;
+  border-radius: 0.5rem;
   background-size: cover;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -2465,6 +2450,11 @@ body {
   padding-right: 1.25rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-shadow-color: rgb(0 0 0 / 0.75);
+  --tw-shadow: var(--tw-shadow-colored);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 1000ms;
@@ -2690,20 +2680,12 @@ form {
     right: 10%;
   }
 
-  .md\:top-24 {
-    top: 6rem;
+  .md\:top-16 {
+    top: 4rem;
   }
 
   .md\:top-\[80px\] {
     top: 80px;
-  }
-
-  .md\:top-20 {
-    top: 5rem;
-  }
-
-  .md\:top-16 {
-    top: 4rem;
   }
 
   .md\:-translate-x-2\/4 {
@@ -2711,19 +2693,14 @@ form {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
-  .md\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-
-  .md\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 }
 
@@ -2792,11 +2769,6 @@ form {
 
   .lg\:bg-auto {
     background-size: auto;
-  }
-
-  .lg\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 }
 
