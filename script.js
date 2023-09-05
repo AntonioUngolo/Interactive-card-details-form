@@ -22,6 +22,10 @@ function isNotAString() {
   return 'Wrong format, text only';
 }
 
+function blankContent() {
+  return 'Can not be blank';
+}
+
 function checkName() {
   function removeEmptyStringsFromArray(arr) {
     var filteredArray = arr.filter(function (value) {
@@ -73,13 +77,11 @@ const checkInputs = function () {
 
 const checkNumberLenght = function () {
   if (inputNumber.value.length < 12) {
-    console.log('Less Than 12');
     errorNumber.classList.remove('hidden');
     errorNumber.textContent = 'Not enough numbers';
     inputNumber.classList.add('error__input');
     return true;
   } else {
-    console.log('More than 12');
     inputNumber.classList.remove('error__input');
     errorNumber.classList.add('hidden');
     errorNumber.textContent = '';
@@ -87,26 +89,44 @@ const checkNumberLenght = function () {
   }
 };
 
+const removeClass = function (cl, rm, tx) {
+  cl.classList.remove(rm);
+  cl.textContent = tx;
+};
+
+const addClass = function (cl, rm, tx) {
+  cl.classList.add(rm);
+  cl.textContent = tx;
+};
+
 inputCardholder.addEventListener('input', function () {
   const errorUser = document.getElementById('error__user');
   const pattern = /\d/; // The \d pattern matches any digit (0-9)
 
   if (pattern.test(inputCardholder.value)) {
-    errorUser.classList.remove('hidden');
-    errorUser.textContent = isNotAString();
+    // errorUser.classList.remove('hidden');
+    // errorUser.textContent = isNotAString();
+    removeClass(errorUser, 'hidden', isNotAString());
   } else if (inputCardholder.value === '') {
-    const errorUser = document.getElementById('error__user');
-    errorUser.classList.remove('hidden');
-    errorUser.textContent = 'Can not be blank';
-    inputCardholder.classList.add('error__input');
-  } else if (!checkName()) {
-    errorUser.classList.remove('hidden');
-    errorUser.textContent = 'You need a name and a surname';
+    // const errorUser = document.getElementById('error__user');
+    // errorUser.classList.remove('hidden');
+    // errorUser.textContent = 'Can not be blank';
+    removeClass(errorUser, 'hidden', blankContent());
     inputCardholder.classList.add('error__input');
   } else {
+    // errorUser.classList.add('hidden');
+    addClass(errorUser, 'hidden', '');
     labelUser.textContent = inputCardholder.value;
-    errorUser.classList.add('hidden');
   }
+
+  inputCardholder.addEventListener('blur', function () {
+    if (!checkName()) {
+      // errorUser.classList.remove('hidden');
+      // errorUser.textContent = 'You need a name and a surname';
+      removeClass(errorUser, 'hidden', 'You need a name and a surname');
+      inputCardholder.classList.add('error__input');
+    }
+  });
 
   if (!errorUser.classList.contains('hidden')) {
     inputCardholder.classList.add('error__input');
@@ -122,8 +142,9 @@ inputNumber.addEventListener('input', function (e) {
   const formattedInput = inputPad.replace(/(.{4})/g, '$1 ');
 
   if (!isNaN(inputNumber.value)) {
+    // errorNumber.classList.add('hidden');
+    addClass(errorNumber, 'hidden', '');
     labelNumber.textContent = formattedInput;
-    errorNumber.classList.add('hidden');
   } else if (inputNumber.value === '') {
     errorNumber.classList.remove('hidden');
     errorNumber.textContent = 'Can’t be blank';
@@ -229,42 +250,23 @@ inputCode.addEventListener('input', function () {
 
 submitButton.addEventListener('click', function (event) {
   event.preventDefault();
-  checkName();
   const errorLabels = document.querySelectorAll('.error');
   errorLabels.forEach((error) => {
-    // if (
-    //   error.classList.contains('hidden') &&
-    //   inputCardholder.value !== '' &&
-    //   inputNumber.value !== '' &&
-    //   inputMonth.value !== '' &&
-    //   inputYear.value !== '' &&
-    //   inputCode.value !== ''
-    // ) {
-    //   const form = document.querySelector('.form');
-    //   form.classList.add('hidden');
-
-    //   const thankYou = document.querySelector('#thank_you');
-    //   thankYou.classList.remove('hidden');
-    // } else if(!checkNumberLenght()){
-
-    // }else {
-    //   checkInputs();
-    // }
-
-    if (checkNumberLenght()) {
-      console.log('Error Lenght, can not continue');
-    } else if (
+    if (
       error.classList.contains('hidden') &&
-      inputCardholder.value === '' &&
-      inputNumber.value === '' &&
-      inputMonth.value === '' &&
-      inputYear.value === '' &&
-      inputCode.value === ''
+      inputCardholder.value !== '' &&
+      inputNumber.value !== '' &&
+      inputMonth.value !== '' &&
+      inputYear.value !== '' &&
+      inputCode.value !== ''
     ) {
-      // checkInputs();
-      console.log('Error inputs empty, can not continue');
+      const form = document.querySelector('.form');
+      form.classList.add('hidden');
+
+      const thankYou = document.querySelector('#thank_you');
+      thankYou.classList.remove('hidden');
     } else {
-      console.log('No Errors, can continue');
+      checkInputs();
     }
   });
 });
