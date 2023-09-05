@@ -1822,15 +1822,15 @@ video {
 }
 
 .bg-back-card {
-  background-image: url('./images/bg-card-back.png');
+  background-image: url('../images/bg-card-back.png');
 }
 
 .bg-background-mobile {
-  background-image: url('./images/bg-main-mobile.png');
+  background-image: url('../images/bg-main-mobile.png');
 }
 
 .bg-front-card {
-  background-image: url('./images/bg-card-front.png');
+  background-image: url('../images/bg-card-front.png');
 }
 
 .decoration-slice {
@@ -2754,7 +2754,7 @@ form {
   }
 
   .lg\:bg-background-desktop {
-    background-image: url('./images/bg-main-desktop.png');
+    background-image: url('../images/bg-main-desktop.png');
   }
 
   .lg\:bg-auto {
