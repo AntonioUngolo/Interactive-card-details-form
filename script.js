@@ -58,7 +58,7 @@ const checkName = function () {
   }
 };
 
-function expiredCard() {
+const expiredCard = function () {
   const date = new Date();
   const currentMonth = date.getMonth();
   const currentYear = String(date.getFullYear()).slice(2);
@@ -68,7 +68,7 @@ function expiredCard() {
   } else {
     return false;
   }
-}
+};
 
 const checkInputs = function () {
   const formInputs = document.querySelectorAll('.form_input');
@@ -126,23 +126,17 @@ const checkCvc = function () {
   };
 
   if (inputCode.value === '') {
-    // errorCode.classList.remove('hidden');
-    // errorCode.textContent = 'Can’t be blank';
     removeClass(errorCode, 'hidden', blankContent());
-    // console.log(errorInput(), errorCode);
     errorInput();
-    // inputCode.classList.add('error__input');
     return false;
   } else if (isNaN(inputCode.value)) {
-    // errorCode.classList.remove('hidden');
-    // errorCode.textContent = 'Error cvc, numbers only';
-    removeClass(errorCode, 'hidden', 'Error cvc, numbers only');
     errorInput();
+    removeClass(errorCode, 'hidden', 'Error cvc, numbers only');
     return false;
   } else {
-    // errorCode.classList.add('hidden');
     addClass(errorCode, 'hidden', '');
     labelCode.textContent = inputCode.value;
+    errorInput();
     return true;
   }
 };
@@ -152,17 +146,11 @@ inputCardholder.addEventListener('input', function () {
   const pattern = /\d/; // The \d pattern matches any digit (0-9)
 
   if (pattern.test(inputCardholder.value)) {
-    // errorUser.classList.remove('hidden');
-    // errorUser.textContent = isNotAString();
     removeClass(errorUser, 'hidden', isNotAString());
   } else if (inputCardholder.value === '') {
-    // const errorUser = document.getElementById('error__user');
-    // errorUser.classList.remove('hidden');
-    // errorUser.textContent = 'Can not be blank';
     removeClass(errorUser, 'hidden', blankContent());
     inputCardholder.classList.add('error__input');
   } else {
-    // errorUser.classList.add('hidden');
     addClass(errorUser, 'hidden', '');
     labelUser.textContent = inputCardholder.value;
   }
@@ -172,8 +160,6 @@ inputCardholder.addEventListener('input', function () {
       removeClass(errorUser, 'hidden', blankContent());
       inputCardholder.classList.add('error__input');
     } else if (!checkName()) {
-      // errorUser.classList.remove('hidden');
-      // errorUser.textContent = 'You need a name and a surname';
       removeClass(errorUser, 'hidden', 'You need a name and a surname');
       inputCardholder.classList.add('error__input');
     }
@@ -193,16 +179,11 @@ inputNumber.addEventListener('input', function (e) {
   const formattedInput = inputPad.replace(/(.{4})/g, '$1 ');
 
   if (!isNaN(inputNumber.value)) {
-    // errorNumber.classList.add('hidden');
     addClass(errorNumber, 'hidden', '');
     labelNumber.textContent = formattedInput;
   } else if (inputNumber.value === '') {
-    // errorNumber.classList.remove('hidden');
-    // errorNumber.textContent = 'Can’t be blank';
     removeClass(errorNumber, 'hidden', blankContent());
   } else {
-    // errorNumber.classList.remove('hidden');
-    // errorNumber.textContent = isNotANumber();
     removeClass(errorNumber, 'hidden', isNotANumber());
   }
 
@@ -213,10 +194,12 @@ inputNumber.addEventListener('input', function (e) {
   }
 
   inputNumber.addEventListener('blur', function () {
-    if (checkNumberLenght()) {
-      checkNumberLenght();
+    if (inputNumber.value.length < 16 && inputNumber.value !== '') {
+      removeClass(errorNumber, 'hidden', 'Card number needs 16 numbers');
+      inputNumber.classList.add('error__input');
     } else {
-      checkNumberLenght();
+      addClass(errorNumber, 'hidden', '');
+      inputNumber.classList.remove('error__input');
     }
   });
 });
@@ -261,20 +244,19 @@ inputYear.addEventListener('input', function () {
 
   if (inputYear.value === '') {
     // Display error for empty input
-    errorDate.classList.remove('hidden');
-    errorDate.textContent = 'Can’t be blank';
-  } else if (inputYear.value < String(dateYear).slice(2)) {
+    removeClass(errorDate, 'hidden', blankContent());
+  } else if (
+    inputYear.value < String(dateYear).slice(2) &&
+    inputYear.value.length >= 2
+  ) {
     // Display error for an expired card
-    errorDate.classList.remove('hidden');
-    errorDate.textContent = 'Expired Card';
-  } else if (isNaN(inputYear.value)) {
+    removeClass(errorDate, 'hidden', 'Expired Card');
+  } else if (isNaN(inputYear.value) || inputYear.value.length < 2) {
     // Display error for an expired card
-    errorDate.classList.remove('hidden');
-    errorDate.textContent = 'Error Year';
+    removeClass(errorDate, 'hidden', 'Error Year');
   } else {
     // Clear errors if no issues
-    errorDate.classList.add('hidden');
-    errorDate.textContent = '';
+    addClass(errorDate, 'hidden', '');
     labelExpireYear.textContent = inputYear.value;
   }
 
@@ -285,29 +267,8 @@ inputYear.addEventListener('input', function () {
   }
 });
 
-inputCode.addEventListener('input', function () {
-  // const errorCode = document.getElementById('error__code');
-  // if (inputCode.value === '') {
-  //   // errorCode.classList.remove('hidden');
-  //   // errorCode.textContent = 'Can’t be blank';
-  //   removeClass(errorCode, 'hidden', blankContent());
-  // } else if (isNaN(inputCode.value)) {
-  //   // errorCode.classList.remove('hidden');
-  //   // errorCode.textContent = 'Error cvc, numbers only';
-  //   removeClass(errorCode, 'hidden', 'Error cvc, numbers only');
-  // } else {
-  //   // errorCode.classList.add('hidden');
-  //   addClass(errorCode, 'hidden', '');
-  //   labelCode.textContent = inputCode.value;
-  // }
-
+inputCode.addEventListener('blur', function () {
   checkCvc();
-
-  // if (!errorCode.classList.contains('hidden')) {
-  //   inputCode.classList.add('error__input');
-  // } else {
-  //   inputCode.classList.remove('error__input');
-  // }
 });
 
 submitButton.addEventListener('click', function (event) {
@@ -322,7 +283,8 @@ submitButton.addEventListener('click', function (event) {
       inputYear.value !== '' &&
       inputCode.value !== '' &&
       checkName() &&
-      checkCvc()
+      checkCvc() &&
+      !checkNumberLenght()
     ) {
       const form = document.querySelector('.form');
       form.classList.add('hidden');
