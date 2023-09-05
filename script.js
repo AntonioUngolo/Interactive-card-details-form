@@ -38,7 +38,7 @@ const removeClass = function (selector, remove, text) {
 };
 
 // Check if the name is made at least by 2 words (Name and Surname)
-function checkName() {
+const checkName = function () {
   // Remove empty string from array
   function removeEmptyStringsFromArray(arr) {
     // Filter the array only with words
@@ -56,7 +56,7 @@ function checkName() {
   } else {
     return false;
   }
-}
+};
 
 function expiredCard() {
   const date = new Date();
@@ -78,19 +78,14 @@ const checkInputs = function () {
     const inputs = form.querySelectorAll('input');
     inputs.forEach((input) => {
       if (input.value === '') {
-        // error.classList.remove('hidden');
-        // error.textContent = 'Can not be blank';
         removeClass(error, 'hidden', blankContent());
         input.classList.add('error__input');
       } else if (!checkName() && input.value === '') {
-        // error.classList.remove('hidden');
-        // error.textContent = 'You need a name and a surname';
         removeClass(error, 'hidden', blankContent());
         input.classList.add('error__input');
-        checkNumberLenght();
+      } else if (console) {
       } else {
-        // error.classList.add('hidden');
-        // error.textContent = '';
+        console.log('Here is the problem with input value');
         addClass(error, 'hidden', '');
         input.classList.remove('error__input');
       }
@@ -115,6 +110,40 @@ const checkNumberLenght = function () {
     addClass(errorNumber, 'hidden', '');
     inputNumber.classList.remove('error__input');
     return false;
+  }
+};
+
+const checkCvc = function () {
+  const errorCode = document.getElementById('error__code');
+  const errorInput = function () {
+    if (!errorCode.classList.contains('hidden')) {
+      inputCode.classList.add('error__input');
+      return true;
+    } else {
+      inputCode.classList.remove('error__input');
+      return false;
+    }
+  };
+
+  if (inputCode.value === '') {
+    // errorCode.classList.remove('hidden');
+    // errorCode.textContent = 'Can’t be blank';
+    removeClass(errorCode, 'hidden', blankContent());
+    // console.log(errorInput(), errorCode);
+    errorInput();
+    // inputCode.classList.add('error__input');
+    return false;
+  } else if (isNaN(inputCode.value)) {
+    // errorCode.classList.remove('hidden');
+    // errorCode.textContent = 'Error cvc, numbers only';
+    removeClass(errorCode, 'hidden', 'Error cvc, numbers only');
+    errorInput();
+    return false;
+  } else {
+    // errorCode.classList.add('hidden');
+    addClass(errorCode, 'hidden', '');
+    labelCode.textContent = inputCode.value;
+    return true;
   }
 };
 
@@ -184,7 +213,6 @@ inputNumber.addEventListener('input', function (e) {
   }
 
   inputNumber.addEventListener('blur', function () {
-    // checkNumberLenght();
     if (checkNumberLenght()) {
       checkNumberLenght();
     } else {
@@ -258,26 +286,28 @@ inputYear.addEventListener('input', function () {
 });
 
 inputCode.addEventListener('input', function () {
-  const errorCode = document.getElementById('error__code');
-  if (inputCode.value === '') {
-    // errorCode.classList.remove('hidden');
-    // errorCode.textContent = 'Can’t be blank';
-    removeClass(errorCode, 'hidden', blankContent());
-  } else if (isNaN(inputCode.value)) {
-    // errorCode.classList.remove('hidden');
-    // errorCode.textContent = 'Error cvc, numbers only';
-    removeClass(errorCode, 'hidden', 'Error cvc, numbers only');
-  } else {
-    // errorCode.classList.add('hidden');
-    addClass(errorCode, 'hidden', '');
-    labelCode.textContent = inputCode.value;
-  }
+  // const errorCode = document.getElementById('error__code');
+  // if (inputCode.value === '') {
+  //   // errorCode.classList.remove('hidden');
+  //   // errorCode.textContent = 'Can’t be blank';
+  //   removeClass(errorCode, 'hidden', blankContent());
+  // } else if (isNaN(inputCode.value)) {
+  //   // errorCode.classList.remove('hidden');
+  //   // errorCode.textContent = 'Error cvc, numbers only';
+  //   removeClass(errorCode, 'hidden', 'Error cvc, numbers only');
+  // } else {
+  //   // errorCode.classList.add('hidden');
+  //   addClass(errorCode, 'hidden', '');
+  //   labelCode.textContent = inputCode.value;
+  // }
 
-  if (!errorCode.classList.contains('hidden')) {
-    inputCode.classList.add('error__input');
-  } else {
-    inputCode.classList.remove('error__input');
-  }
+  checkCvc();
+
+  // if (!errorCode.classList.contains('hidden')) {
+  //   inputCode.classList.add('error__input');
+  // } else {
+  //   inputCode.classList.remove('error__input');
+  // }
 });
 
 submitButton.addEventListener('click', function (event) {
@@ -291,24 +321,27 @@ submitButton.addEventListener('click', function (event) {
       inputMonth.value !== '' &&
       inputYear.value !== '' &&
       inputCode.value !== '' &&
-      checkName()
+      checkName() &&
+      checkCvc()
     ) {
       const form = document.querySelector('.form');
       form.classList.add('hidden');
 
       const thankYou = document.querySelector('#thank_you');
       thankYou.classList.remove('hidden');
+    } else if (
+      !checkName() &&
+      error.classList.contains('hidden') &&
+      inputCardholder.value !== ''
+    ) {
+      const errorUser = document.getElementById('error__user');
+      removeClass(errorUser, 'hidden', 'You need a name and a surname');
+      inputCardholder.classList.add('error__input');
+      // checkNumberLenght();
+      checkInputs();
     } else {
-      if (!checkName() && error.classList.contains('hidden')) {
-        const errorUser = document.getElementById('error__user');
-        removeClass(errorUser, 'hidden', 'You need a name and a surname');
-        inputCardholder.classList.add('error__input');
-        checkInputs();
-        checkNumberLenght();
-      } else {
-        checkInputs();
-        checkNumberLenght();
-      }
+      checkInputs();
+      checkCvc();
     }
   });
 });
