@@ -94,6 +94,7 @@ const removeClass = function (cl, rm, tx) {
   cl.textContent = tx;
 };
 
+// Questa funzione serve ad aggiungere la classe
 const addClass = function (cl, rm, tx) {
   cl.classList.add(rm);
   cl.textContent = tx;
