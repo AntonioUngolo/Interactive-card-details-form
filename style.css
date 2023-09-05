@@ -7,7 +7,7 @@ body {
 }
 
 .c-card {
-  @apply transition-all duration-1000 ease-out w-[285px] h-[156px] md:w-[447px] md:h-[245px] py-4 px-5 md:px-8 md:py-7 text-white bg-cover rounded-lg shadow-2xl shadow-black/75;
+  @apply transition-all duration-1000 ease-out w-[285px] h-[156px] md:w-[447px] md:h-[245px] py-4 px-5 md:px-8 md:py-7 text-white bg-cover rounded-lg shadow-2xl shadow-black/30;
 }
 
 input {

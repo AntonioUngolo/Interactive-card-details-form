@@ -260,13 +260,16 @@ inputYear.addEventListener('input', function () {
 inputCode.addEventListener('input', function () {
   const errorCode = document.getElementById('error__code');
   if (inputCode.value === '') {
-    errorCode.classList.remove('hidden');
-    errorCode.textContent = 'Can’t be blank';
+    // errorCode.classList.remove('hidden');
+    // errorCode.textContent = 'Can’t be blank';
+    removeClass(errorCode, 'hidden', blankContent());
   } else if (isNaN(inputCode.value)) {
-    errorCode.classList.remove('hidden');
-    errorCode.textContent = 'Error cvc, numbers only';
+    // errorCode.classList.remove('hidden');
+    // errorCode.textContent = 'Error cvc, numbers only';
+    removeClass(errorCode, 'hidden', 'Error cvc, numbers only');
   } else {
-    errorCode.classList.add('hidden');
+    // errorCode.classList.add('hidden');
+    addClass(errorCode, 'hidden', '');
     labelCode.textContent = inputCode.value;
   }
 
@@ -303,7 +306,6 @@ submitButton.addEventListener('click', function (event) {
         checkInputs();
         checkNumberLenght();
       } else {
-        console.log(error);
         checkInputs();
         checkNumberLenght();
       }
