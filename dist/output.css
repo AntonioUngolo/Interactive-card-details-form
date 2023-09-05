@@ -1976,6 +1976,10 @@ video {
   text-align: end;
 }
 
+.indent-1 {
+  text-indent: 0.25rem;
+}
+
 .align-baseline {
   vertical-align: baseline;
 }
@@ -2093,6 +2097,22 @@ video {
 .stacked-fractions {
   --tw-numeric-fraction: stacked-fractions;
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}
+
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+
+.tracking-widest {
+  letter-spacing: 0.1em;
+}
+
+.tracking-\[3\2c 25px\] {
+  letter-spacing: 3,25px;
+}
+
+.tracking-\[2px\] {
+  letter-spacing: 2px;
 }
 
 .text-\[\#336699\]\/\[\.35\] {
@@ -2691,6 +2711,11 @@ form {
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 }
 
